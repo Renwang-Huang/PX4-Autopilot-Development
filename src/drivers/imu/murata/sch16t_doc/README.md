@@ -1,0 +1,1 @@
+# murata sch16t:<https://www.murata.com.cn/zh-cn/products/sensor/gyro/overview/lineup/sch16t>

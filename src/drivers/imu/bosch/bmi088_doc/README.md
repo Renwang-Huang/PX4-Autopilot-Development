@@ -1,0 +1,1 @@
+# <https://www.bosch-sensortec.com/products/motion-sensors/imus/bmi088/>
