@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Graph</title>
+    <!-- 引用 D3.js -->
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+    <style>
+        /* 自定义样式 */
+        body {
+            font-family: Arial, sans-serif;
+        }
+        #svg-graph {
+            border: 1px solid #ccc;
+        }
+    </style>
+</head>
+<body>
+    <h1>Interactive Graph</h1>
+    <svg id="svg-graph" width="800" height="600"></svg>
+    <input id="search" type="text" placeholder="Search for nodes" />
+    <select id="select-graph">
+        <option value="graph1.json">Graph 1</option>
+        <option value="graph2.json">Graph 2</option>
+    </select>
+
+    <script>
+        // 使用 D3.js 动态加载 JSON 文件
+        d3.json("graph.json", function(error, data) {
+            if (error) {
+                console.error("Error loading JSON:", error); // 如果加载失败，输出错误信息
+                return;
+            }
+            console.log("Loaded JSON data:", data); // 打印加载的 JSON 数据
+            
+            // 示例：将数据绘制在 SVG 中
+            var svg = d3.select("#svg-graph");
+            
+            // 绘制节点
+            var nodes = svg.selectAll("circle")
+                .data(data.nodes)
+                .enter()
+                .append("circle")
+                .attr("cx", function(d, i) { return 100 + i * 200; }) // 水平位置
+                .attr("cy", 300) // 垂直位置
+                .attr("r", 20) // 节点半径
+                .attr("fill", function(d) { return d.color; }); // 节点颜色
+            
+            // 绘制连线
+            var links = svg.selectAll("line")
+                .data(data.links)
+                .enter()
+                .append("line")
+                .attr("x1", function(d) { return 100; }) // 起点 x 坐标
+                .attr("y1", 300) // 起点 y 坐标
+                .attr("x2", function(d) { return 300; }) // 终点 x 坐标
+                .attr("y2", 300) // 终点 y 坐标
+                .attr("stroke", "#999") // 线条颜色
+                .attr("stroke-width", 2); // 线条宽度
+        });
+    </script>
+</body>
+</html>
